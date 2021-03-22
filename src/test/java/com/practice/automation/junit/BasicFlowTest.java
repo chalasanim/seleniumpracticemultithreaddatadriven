@@ -1,4 +1,4 @@
-package com.practice.automation;
+package com.practice.automation.junit;
 import com.sample.framework.Configuration;
 import com.sample.framework.Driver;
 
@@ -94,16 +94,14 @@ public class BasicFlowTest {
   public void MultiTest () throws InterruptedException {
     driver.findElement(By.linkText("Sign in")).click();
     driver.findElement(By.id("email")).click();
-    
-    driver.findElement(By.id("passwd")).sendKeys(passwd);
     driver.findElement(By.id("email")).sendKeys(username);
+    driver.findElement(By.id("passwd")).sendKeys(passwd);
     driver.findElement(By.cssSelector("#SubmitLogin > span")).click();
     driver.findElement(By.id("columns")).click();
     
 
     
     driver.findElement(By.linkText(this.menuItem)).click();
-
     driver.findElement(By.linkText(this.dressColor)).click();
     driver.findElement(By.cssSelector(".ajax_block_product:nth-child(5) .replace-2x")).click();
     

@@ -1,4 +1,4 @@
-package com.practice.automation;
+package com.practice.automation.testng;
 
 import org.testng.annotations.Test;
 
@@ -72,7 +72,6 @@ public class BaicFlowTestNGTest {
 	      
 	    };
 	  }
-
 	
 	
   @Test(dataProvider = "dp")

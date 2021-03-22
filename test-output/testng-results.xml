@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="3" passed="3" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2021-03-22T09:05:10 GMT" name="Default suite" finished-at="2021-03-22T09:06:09 GMT" duration-ms="59016">
+    <groups>
+    </groups>
+    <test started-at="2021-03-22T09:05:10 GMT" name="Default test" finished-at="2021-03-22T09:06:09 GMT" duration-ms="59016">
+      <class name="com.practice.automation.BaicFlowTestNGTest">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.practice.automation.BaicFlowTestNGTest@247310d0]" started-at="2021-03-22T09:05:10 GMT" name="setUp" finished-at="2021-03-22T09:05:24 GMT" duration-ms="14229" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="f(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.practice.automation.BaicFlowTestNGTest@247310d0]" started-at="2021-03-22T09:05:24 GMT" name="f" data-provider="dp" finished-at="2021-03-22T09:05:39 GMT" duration-ms="14028" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Women]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Pink (1)]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[1]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- f -->
+        <test-method signature="f(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.practice.automation.BaicFlowTestNGTest@247310d0]" started-at="2021-03-22T09:05:39 GMT" name="f" data-provider="dp" finished-at="2021-03-22T09:05:53 GMT" duration-ms="13968" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Women]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Black (2)]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[1]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- f -->
+        <test-method signature="f(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.practice.automation.BaicFlowTestNGTest@247310d0]" started-at="2021-03-22T09:05:53 GMT" name="f" data-provider="dp" finished-at="2021-03-22T09:06:07 GMT" duration-ms="14699" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Women]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Yellow (3)]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[1]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- f -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.practice.automation.BaicFlowTestNGTest@247310d0]" started-at="2021-03-22T09:06:07 GMT" name="tearDown" finished-at="2021-03-22T09:06:09 GMT" duration-ms="2020" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- com.practice.automation.BaicFlowTestNGTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
