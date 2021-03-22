@@ -1,6 +1,9 @@
 package com.practice.automation.junit;
 import com.sample.framework.Configuration;
 import com.sample.framework.Driver;
+import com.sample.framework.ui.controls.Control;
+import com.sample.framework.ui.controls.Edit;
+import com.sample.framework.ui.controls.SelectList;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -32,7 +35,8 @@ public class BasicFlowTest {
 	
 
   private WebDriver driver;
-  private WebDriverWait wait;
+
+ 
   private Map<String, Object> vars;
   JavascriptExecutor js;
   private String username="a.tarigopula@gmail.com";
@@ -49,8 +53,7 @@ public class BasicFlowTest {
 	  this.menuItem=menuItem;
 	  this.dressColor=dressColor;
 	  this.cartStatus=cartStatus;	  
-  }
-  
+  }  
  
   
   @Parameters
@@ -61,8 +64,7 @@ public class BasicFlowTest {
 		         {"Women","Pink (1)","1"},
 		         {"Women","Yellow (3)","1"},
 		         {"Women","Black (2)","1"}
-		                  
-		         
+		                  		         
 			  }) ;	  
   } 
   
@@ -76,13 +78,14 @@ public class BasicFlowTest {
     driver=Driver.current();    
     driver.get(url);
     driver.manage().window().maximize();
-
-
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
-    wait=new WebDriverWait(driver,20);
+
+    
+  
 
   }
+  
   @After
   public void tearDown() {
     driver.quit();
@@ -92,30 +95,49 @@ public class BasicFlowTest {
   
   @Test
   public void MultiTest () throws InterruptedException {
-    driver.findElement(By.linkText("Sign in")).click();
-    driver.findElement(By.id("email")).click();
-    driver.findElement(By.id("email")).sendKeys(username);
-    driver.findElement(By.id("passwd")).sendKeys(passwd);
-    driver.findElement(By.cssSelector("#SubmitLogin > span")).click();
-    driver.findElement(By.id("columns")).click();
-    
+	  
+	Control signinLink=new Control(driver,By.linkText("Sign in"));
+	Control signoutLink=new Control(driver,By.linkText("Sign out"));
 
-    
-    driver.findElement(By.linkText(this.menuItem)).click();
-    driver.findElement(By.linkText(this.dressColor)).click();
-    driver.findElement(By.cssSelector(".ajax_block_product:nth-child(5) .replace-2x")).click();
+	Edit email=new Edit(driver,By.id("email"),username);
+ 	Edit password=new Edit(driver,By.id("passwd"),passwd);
+ 	Control submitButton=new Control(driver,By.cssSelector("#SubmitLogin > span"));
+	Control menuLinkWomen=new Control(driver,By.linkText(this.menuItem));    
+	Control colorOption=new Control(driver,By.linkText(this.dressColor));  
+	Control blockProduct=new Control(driver,By.cssSelector(".ajax_block_product:nth-child(5) .replace-2x"));
+	Control colorCheckbox=new Control(driver,By.cssSelector("a[title='Pink']"));
+	Control addToCartButton=new Control(driver,By.cssSelector("p#add_to_cart>button span"));
+	Control continueShoppingOption=new Control(driver,By.cssSelector("span[title='Continue shopping']>span"));
+	Control cartStatus=new Control(driver,By.cssSelector(".ajax_cart_quantity:nth-child(2)"));
+
+	signinLink.click();
+    email.setValue(username);
+ 	password.setValue(passwd); 	
+    submitButton.click();
+   // driver.findElement(By.id("columns")).click();    
+    menuLinkWomen.click();
+	colorOption.click();
+	blockProduct.click();
+    driver.get("http://automationpractice.com/index.php?id_product=4&controller=product");
+	colorCheckbox.click();
+	addToCartButton.click();	
+	continueShoppingOption.click();
+	String cartItems=cartStatus.getText();    
+	assertTrue(cartItems.contains(this.cartStatus));
+    signoutLink.click();
     
     //driver.get("http://automationpractice.com/index.php?id_category=3&controller=category");
     //driver.findElement(By.id("color_24")).click();"Pink (1)"
-    driver.get("http://automationpractice.com/index.php?id_product=4&controller=product");
-    wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("a[title='Pink']"))).click();
 
-    wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("p#add_to_cart>button span"))).click();
-    wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("span[title='Continue shopping']>span"))).click();
-    String cart=driver.findElement(By.cssSelector(".ajax_cart_quantity:nth-child(2)")).getText();
-    
-    assertTrue(cart.contains(this.cartStatus));
 
+
+    // wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("a[title='Pink']"))).click();
+    // wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("p#add_to_cart>button span"))).click();
+    // wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("span[title='Continue shopping']>span"))).click();
+	
+
+ 
+/*
     
     driver.findElement(By.linkText("Women")).click();
     driver.findElement(By.cssSelector(".products-block .btn > span")).click();
@@ -158,7 +180,7 @@ public class BasicFlowTest {
     driver.findElement(By.cssSelector(".top-pagination-content")).click();
     driver.findElement(By.cssSelector(".ajax_cart_quantity:nth-child(2)")).click();
     
-    driver.findElement(By.linkText("Sign out")).click();
+    driver.findElement(By.linkText("Sign out")).click();  */
 
   }
   

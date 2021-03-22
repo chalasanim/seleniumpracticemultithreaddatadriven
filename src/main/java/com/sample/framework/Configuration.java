@@ -53,5 +53,11 @@ public final class Configuration {
 		
 	}
 	
+	public static long timeout() {
+		String value=get("timeout");
+		return  Long.parseLong(value);
+	}
+
+	
 	
 }
