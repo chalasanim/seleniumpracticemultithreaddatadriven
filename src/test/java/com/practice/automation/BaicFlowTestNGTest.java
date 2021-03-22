@@ -14,6 +14,8 @@ import static org.testng.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.After;
+import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -27,14 +29,63 @@ import org.testng.annotations.AfterTest;
 
 public class BaicFlowTestNGTest {
 	
-  @Test(dataProvider = "dp")
-  public void f(Integer n, String s) {
+
+	  private WebDriver driver;
+	  private WebDriverWait wait;
+	  private Map<String, Object> vars;
+	  JavascriptExecutor js;
+	  private String username="a.tarigopula@gmail.com";
+	  private String passwd="!EDm!k8D8Wfd5PK";
+	  private String menuItem;
+	  private String dressColor;
+	  private CharSequence cartStatus;
+	
+	
+	
+	  @BeforeTest
+	  public void setUp() throws Exception {
+		Configuration.load();
+		Configuration.print();   
+	    String url=Configuration.get("url");
+	    DesiredCapabilities cap=new DesiredCapabilities();
+	    Driver.add(Configuration.get("browser"), cap);
+	    driver=Driver.current();    
+	    driver.get(url);
+	    driver.manage().window().maximize();
+
+	    js = (JavascriptExecutor) driver;
+	    vars = new HashMap<String, Object>();
+	    wait = new WebDriverWait(driver,20);
+
+	  }
+	  @AfterTest
+	  public void tearDown() {
+	    driver.quit();
+	  }
 	  
+	  @DataProvider
+	  public Object[][] dp() {
+	    return new Object[][] {
+	      new Object[] {"Women","Pink (1)","1" },
+	      new Object[] {"Women","Black (2)","1" },
+	      new Object[] {"Women","Yellow (3)","1"},
+	      
+	    };
+	  }
 
-
-	    
-	    driver.findElement(By.linkText(this.menuItem)).click();
-	    driver.findElement(By.linkText(this.dressColor)).click();
+	
+	
+  @Test(dataProvider = "dp")
+  public void f(String menuItem, String dressColor, String cartStatus) { 
+	  
+	    driver.findElement(By.linkText("Sign in")).click();
+	    driver.findElement(By.id("email")).click();	    
+	    driver.findElement(By.id("passwd")).sendKeys(passwd);
+	    driver.findElement(By.id("email")).sendKeys(username);
+	    driver.findElement(By.cssSelector("#SubmitLogin > span")).click();
+	    driver.findElement(By.id("columns")).click(); 	    
+	    driver.findElement(By.linkText(menuItem)).click();
+	    driver.findElement(By.linkText(dressColor)).click();
 	    driver.findElement(By.cssSelector(".ajax_block_product:nth-child(5) .replace-2x")).click();
 	    
 	    //driver.get("http://automationpractice.com/index.php?id_category=3&controller=category");
@@ -46,71 +97,8 @@ public class BaicFlowTestNGTest {
 	    wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("span[title='Continue shopping']>span"))).click();
 	    String cart=driver.findElement(By.cssSelector(".ajax_cart_quantity:nth-child(2)")).getText();
 	    
-	    assertTrue(cart.contains(this.cartStatus));
-  }
-  @AfterMethod
-  public void afterMethod() {
-  }
-
-
-  @DataProvider
-  public Object[][] dp() {
-    return new Object[][] {
-      new Object[] {"Women","Pink (1)","1" },
-      new Object[] {"Women","Black (2)","1" },
-      new Object[] {"Women","Yellow (3)","1"},
-      
-    };
-  }
-  @BeforeClass
-  public void beforeClass() {
-	  
-
-	  private WebDriver driver;
-	  private WebDriverWait wait;
-	  private Map<String, Object> vars;
-	  JavascriptExecutor js;
-	  private String username="a.tarigopula@gmail.com";
-	  private String passwd="!EDm!k8D8Wfd5PK";
-	  
-	  
-	  private String menuItem;
-	  private String dressColor;
-	  private String cartStatus;
-  }
-
-  @AfterClass
-  public void afterClass() {
-  }
-
-  @BeforeTest
-  public void beforeTest() {
-	  
-	    Configuration.load();
-		Configuration.print();   
-	    String url=Configuration.get("url");
-	    DesiredCapabilities cap=new DesiredCapabilities();
-	    Driver.add(Configuration.get("browser"), cap);
-	    driver=Driver.current();    
-	    driver.get(url);
-	    driver.manage().window().maximize();
-
-
-	    js = (JavascriptExecutor) driver;
-	    vars = new HashMap<String, Object>();
-	    wait=new WebDriverWait(driver,20);
-	  
-	    driver.findElement(By.linkText("Sign in")).click();
-	    driver.findElement(By.id("email")).click();	    
-	    driver.findElement(By.id("passwd")).sendKeys(passwd);
-	    driver.findElement(By.id("email")).sendKeys(username);
-	    driver.findElement(By.cssSelector("#SubmitLogin > span")).click();
-	    driver.findElement(By.id("columns")).click();
-	    
-  }
-
-  @AfterTest
-  public void afterTest() {
+	    assertTrue(cart.contains(cartStatus),"Test Failed to Show Cart Status as 1");
+	    driver.findElement(By.linkText("Sign out")).click();
   }
 
 }
