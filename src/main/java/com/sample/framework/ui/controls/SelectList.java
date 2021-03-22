@@ -4,10 +4,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import com.samples.framework.ui.Page;
+
 public class SelectList extends Control {
 
-	public SelectList(WebDriver driver, By locator,String text) {
-		super(driver, locator);
+	public SelectList(Page pageValue, By locator,String text) {
+		super(pageValue, locator);
 		// TODO Auto-generated constructor stub
 	}
 

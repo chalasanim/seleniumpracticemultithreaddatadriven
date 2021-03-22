@@ -1,9 +1,12 @@
 package com.practice.automation.junit;
+
 import com.sample.framework.Configuration;
 import com.sample.framework.Driver;
-import com.sample.framework.ui.controls.Control;
-import com.sample.framework.ui.controls.Edit;
-import com.sample.framework.ui.controls.SelectList;
+import com.samples.framework.ui.HomePage;
+import com.samples.framework.ui.Page;
+import com.samples.framework.ui.SignInPage;
+import com.samples.framework.ui.ViewDressPage;
+import com.samples.framework.ui.WomenPage;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -34,13 +37,17 @@ public class BasicFlowTest {
 	
 	
 
-  private WebDriver driver;
+ // private WebDriver driver;
+	Page basePage;
+	HomePage homePage;
+	SignInPage loginPage;
+	WomenPage womenPage;
+	ViewDressPage viewDressPage;
 
  
   private Map<String, Object> vars;
   JavascriptExecutor js;
-  private String username="a.tarigopula@gmail.com";
-  private String passwd="!EDm!k8D8Wfd5PK";
+
   
   
   private String menuItem;
@@ -75,9 +82,14 @@ public class BasicFlowTest {
     String url=Configuration.get("url");
     DesiredCapabilities cap=new DesiredCapabilities();
     Driver.add(Configuration.get("browser"), cap);
-    driver=Driver.current();    
-    driver.get(url);
-    driver.manage().window().maximize();
+    WebDriver driver = Driver.current();  
+    basePage=new Page(driver);
+    homePage=new HomePage(driver);
+	loginPage=new SignInPage (driver);
+	womenPage=new WomenPage (driver);
+	viewDressPage=new ViewDressPage (driver);
+    homePage.navigate(); 
+    homePage.maximiseWindow();
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
 
@@ -88,43 +100,29 @@ public class BasicFlowTest {
   
   @After
   public void tearDown() {
-    driver.quit();
+    basePage.quit();
   }
   
   @SuppressWarnings("deprecation")
   
   @Test
-  public void MultiTest () throws InterruptedException {
-	  
-	Control signinLink=new Control(driver,By.linkText("Sign in"));
-	Control signoutLink=new Control(driver,By.linkText("Sign out"));
+  public void MultiTest () throws InterruptedException { 
 
-	Edit email=new Edit(driver,By.id("email"),username);
- 	Edit password=new Edit(driver,By.id("passwd"),passwd);
- 	Control submitButton=new Control(driver,By.cssSelector("#SubmitLogin > span"));
-	Control menuLinkWomen=new Control(driver,By.linkText(this.menuItem));    
-	Control colorOption=new Control(driver,By.linkText(this.dressColor));  
-	Control blockProduct=new Control(driver,By.cssSelector(".ajax_block_product:nth-child(5) .replace-2x"));
-	Control colorCheckbox=new Control(driver,By.cssSelector("a[title='Pink']"));
-	Control addToCartButton=new Control(driver,By.cssSelector("p#add_to_cart>button span"));
-	Control continueShoppingOption=new Control(driver,By.cssSelector("span[title='Continue shopping']>span"));
-	Control cartStatus=new Control(driver,By.cssSelector(".ajax_cart_quantity:nth-child(2)"));
-
-	signinLink.click();
-    email.setValue(username);
- 	password.setValue(passwd); 	
-    submitButton.click();
+	homePage.signinLink.click();
+	loginPage.email.setValue(Configuration.get("username"));
+	loginPage.password.setValue(Configuration.get("password")); 	
+	loginPage.submitButton.click();
    // driver.findElement(By.id("columns")).click();    
-    menuLinkWomen.click();
-	colorOption.click();
-	blockProduct.click();
-    driver.get("http://automationpractice.com/index.php?id_product=4&controller=product");
-	colorCheckbox.click();
-	addToCartButton.click();	
-	continueShoppingOption.click();
-	String cartItems=cartStatus.getText();    
+    homePage.menuLinkWomen.click();
+	womenPage.colorOption.click();
+	womenPage.blockProduct.click();
+    basePage.get("http://automationpractice.com/index.php?id_product=4&controller=product");
+	viewDressPage.colorCheckbox.click();
+	viewDressPage.addToCartButton.click();	
+	viewDressPage.continueShoppingOption.click();
+	String cartItems=basePage.cartStatus.getText();    
 	assertTrue(cartItems.contains(this.cartStatus));
-    signoutLink.click();
+    basePage.signoutLink.click();
     
     //driver.get("http://automationpractice.com/index.php?id_category=3&controller=category");
     //driver.findElement(By.id("color_24")).click();"Pink (1)"
