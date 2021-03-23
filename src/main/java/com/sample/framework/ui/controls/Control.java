@@ -1,6 +1,7 @@
 package com.sample.framework.ui.controls;
 
 
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -9,7 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.sample.framework.Configuration;
-import com.samples.framework.ui.Page;
+import com.sample.framework.ui.Page;
 
 public class Control {
 	
@@ -17,14 +18,15 @@ public class Control {
 	private Page parent;
 	private By locator;
 
-	public Control(Page parentValue,By locator) {
+	public Control(Page parentValue,By locatorValue) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.parent=parentValue;
-		this.locator=locator;
+		this.locator=locatorValue;
 	}
 	
-	public WebElement getElement() {
+	
+	public WebElement element() {
 		return parent.getDriver().findElement(locator);
 	}
 	
@@ -48,12 +50,12 @@ public class Control {
 	
 	public void click() {		
 		exists();
-		this.getElement().click();
+		this.element().click();
 	}
 
 	public String getText() {
 		// TODO Auto-generated method stub
-		return this.getElement().getText();
+		return this.element().getText();
 	}
 
 

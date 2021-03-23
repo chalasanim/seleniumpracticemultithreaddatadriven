@@ -4,17 +4,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
-import com.samples.framework.ui.Page;
+import com.sample.framework.ui.Page;
 
 public class SelectList extends Control {
 
-	public SelectList(Page pageValue, By locator,String text) {
-		super(pageValue, locator);
-		// TODO Auto-generated constructor stub
+	public SelectList(Page parentValue, By locatorValue) {
+		super(parentValue, locatorValue);
 	}
 
 	public Select getSelect() {
-		return new Select(this.getElement());
+		return new Select(this.element());
 	}
 	
 	public void selectByText(String text) {
