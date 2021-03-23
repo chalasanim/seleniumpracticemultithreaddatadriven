@@ -43,10 +43,7 @@ public class BasicFlowTest {
 	
 
     private WebDriver driver;
-    String user;
-    String pwd;
-    
-
+   
 	HomePage homePage;
 	SignInPage loginPage;
 	WomenPage womenPage;
@@ -66,7 +63,7 @@ public class BasicFlowTest {
  
   @BeforeClass
   public static void setupClass() {
-   //  WebDriverManager.chromedriver().setup();
+    WebDriverManager.chromedriver().setup();
   }
   
   @Parameters
@@ -86,17 +83,15 @@ public class BasicFlowTest {
 	Configuration.load();
 	Configuration.print();   
     String url=Configuration.get("url");
-	user = Configuration.get("username");
-	pwd = Configuration.get("passwd");
+	String user = Configuration.get("username");
+	String pwd = Configuration.get("passwd");
 
     DesiredCapabilities cap=new DesiredCapabilities();
     Driver.add(Configuration.get("browser"), cap);
-    WebDriver driver = Driver.current();  
+    driver = Driver.current();  
     
     homePage=new HomePage(driver);
-	loginPage=new SignInPage (driver);
-	womenPage=new WomenPage (driver);
-	viewDressPage=new ViewDressPage (driver);
+	
     homePage.navigate(); 
     homePage.maximiseWindow();
 
@@ -108,7 +103,7 @@ public class BasicFlowTest {
   @After
   public void tearDown() {
 	  
-	  Driver.current().quit();
+	  driver.quit();
   }
   
   @SuppressWarnings("deprecation")
@@ -117,17 +112,22 @@ public class BasicFlowTest {
   public void Test () throws InterruptedException { 
   
 		homePage.signinLink.click();
-		
+		loginPage=new SignInPage (driver);
 		loginPage.navigate();
 			
 		loginPage.email.setValue(Configuration.get("username"));
 		loginPage.password.setValue(Configuration.get("passwd")); 	
 		loginPage.submitButton.click();
 		
-	    homePage.menuLinkWomen.click();	    
+	    homePage.menuLinkWomen.click();	 
+	    
+		womenPage=new WomenPage (driver);
+
 		womenPage.colorOption.click();
 		womenPage.blockProduct.click();
 		
+		viewDressPage=new ViewDressPage (driver);
+
 		viewDressPage.navigate();		
 		viewDressPage.colorCheckbox.click();
 		viewDressPage.addToCartButton.click();	
