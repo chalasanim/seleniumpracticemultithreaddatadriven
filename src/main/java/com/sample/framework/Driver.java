@@ -13,6 +13,10 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
+
+
 public final class Driver {
 
 	private Driver() {
@@ -23,11 +27,13 @@ public final class Driver {
 	
 	private static final Map <String,Class<?>> driverMap=new HashMap<String,Class<?>>(){
 		{
-		 put("chrome",ChromeDriver.class);
-		 put("firefox",FirefoxDriver.class);
-		 put("ie",InternetExplorerDriver.class);
-		 put("safari",SafariDriver.class);
-		 put("opera",OperaDriver.class);
+		 put(Platform.CHROME.getValue(),ChromeDriver.class);
+		 put(Platform.FIREFOX.getValue(),FirefoxDriver.class);
+		 put(Platform.IE.getValue(),InternetExplorerDriver.class);
+		 put(Platform.SAFARI.getValue(),SafariDriver.class);
+		 put(Platform.OPERA.getValue(),OperaDriver.class);
+		 put(Platform.ANDRIOD_NATIVE.getValue(),AndroidDriver.class);
+		 put(Platform.IOS_NATIVE.getValue(),IOSDriver.class);
 		}
 		
 	};

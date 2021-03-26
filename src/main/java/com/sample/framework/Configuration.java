@@ -9,13 +9,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 import java.util.Map.Entry;
 
-
-
-
 public final class Configuration {
 	
 	// this is  class contains global parameters ,so it is final class with blanck const, static parameters and methods
-
 	private Configuration() {
 		// TODO Auto-generated constructor stub
 	}
@@ -39,9 +35,7 @@ public final class Configuration {
 	public static String get(String option) {
 		
 		String value=properties.getProperty(option)	;	
-				if( value== null ){
-					return "";					
-				}
+
 		return value;		
 	}
 	
@@ -59,5 +53,8 @@ public final class Configuration {
 	}
 
 	
+	public static Platform platform() {
+		  return Platform.fromString(get("browser"));
+	}
 	
 }

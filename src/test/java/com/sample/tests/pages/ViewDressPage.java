@@ -1,29 +1,30 @@
 package com.sample.tests.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import com.sample.framework.Configuration;
+import com.sample.framework.ui.FindBy;
 import com.sample.framework.ui.Page;
 import com.sample.framework.ui.controls.Control;
 
 public class ViewDressPage extends Page {
 
-	public Control addToCartButton ;
-	public Control continueShoppingOption ;
+	@FindBy(locator="css=a[title='Pink']")
 	public Control colorCheckbox ;
 
+	@FindBy(locator="css=p#add_to_cart>button span")
+	public Control addToCartButton ;
+	
+	@FindBy(locator="css=span[title='Continue shopping']>span")
+	public Control continueShoppingOption ;
+
+	@FindBy(locator="linkText=Sign out")
 	public Control signoutLink ;
+	
+	@FindBy(locator="css=.ajax_cart_quantity:nth-child(2)")
 	public Control cartStatus ;
 
 	public ViewDressPage(WebDriver driver) {
 		super(driver);
-		// TODO Auto-generated constructor stub
-		 colorCheckbox=new Control(this,By.cssSelector("a[title='Pink']"));
-		 addToCartButton=new Control(this,By.cssSelector("p#add_to_cart>button span"));
-		 continueShoppingOption=new Control(this,By.cssSelector("span[title='Continue shopping']>span"));
-		 signoutLink=new Control(this,By.linkText("Sign out"));
-		 cartStatus=new Control(this ,By.cssSelector(".ajax_cart_quantity:nth-child(2)"));
 	}
 
 	
